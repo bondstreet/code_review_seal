@@ -24,6 +24,9 @@ class GithubFetcher
       repo_name = pull_request.html_url.split("/")[4]
       next if hidden?(pull_request, repo_name)
       pull_requests[pull_request.title] = present_pull_request(pull_request, repo_name)
+      # TODO: move 'no reviewers' check into `hidden?` once it become part of Github's
+      # standard PR API.
+      pull_requests.delete_if { |_, pr| pr['reviewers'].empty? }
     end
   end
 
