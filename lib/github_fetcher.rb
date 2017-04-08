@@ -36,6 +36,7 @@ class GithubFetcher
 
   def present_pull_request(pull_request, repo_name)
     pr = {}
+    pr['number'] = pull_request.number
     pr['title'] = pull_request.title
     pr['link'] = pull_request.html_url
     pr['author'] = pull_request.user.login
