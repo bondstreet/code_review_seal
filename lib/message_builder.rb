@@ -16,10 +16,10 @@ class MessageBuilder
   end
 
   def github_seal
-    if !old_pull_requests.empty?
-      @poster_mood = "angry"
-      bark_about_old_pull_requests
-    elsif @content.empty?
+    # if !old_pull_requests.empty?
+    # @poster_mood = "angry"
+    # bark_about_old_pull_requests
+    if @content.empty?
       @poster_mood = "approval"
       no_pull_requests
     else
