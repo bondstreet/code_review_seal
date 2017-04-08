@@ -42,6 +42,7 @@ class GithubFetcher
     pr['approved'] = approved?(pull_request, repo_name)
     pr['updated'] = Date.parse(pull_request.updated_at.to_s)
     pr['labels'] = labels(pull_request, repo_name)
+    pr['reviewers'] = reviewers(pull_request, repo_name)
     pr
   end
 
@@ -75,6 +76,12 @@ class GithubFetcher
     return [] unless use_labels
     key = "#{ORGANISATION}/#{repo}/#{pull_request.number}".to_sym
     @labels[key] ||= @github.labels_for_issue("#{ORGANISATION}/#{repo}", pull_request.number)
+  end
+
+  def reviewers(pull_request, repo)
+    key = "#{ORGANISATION}/#{repo}/#{pull_request.number}".to_sym
+    reviewers = @github.get("repos/#{ORGANISATION}/#{repo}/pulls/#{pull_request.number}/requested_reviewers")
+    reviewers.map { |reviewer| reviewer.login }
   end
 
   def hidden?(pull_request, repo)
