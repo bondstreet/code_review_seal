@@ -1,0 +1,44 @@
+# Please insert new items alphabetically.
+
+bondstreet_devops:
+  members:
+    - KatrinaE
+
+  channel:
+    "#techteam-notify"
+
+  exclude_titles:
+    - "[DO NOT MERGE]"
+    - "Don't merge"
+    - DO NOT MERGE
+    - "Waiting on factcheck"
+    - WIP
+
+  use_labels: true
+
+bondstreet_web:
+  members:
+    - KatrinaE
+
+  channel:
+    "#techteam-notify"
+
+  exclude_titles:
+    - "[DO NOT MERGE]"
+    - DO NOT MERGE
+    - WIP
+
+  quotes:
+    - ":eggplant:"
+    - "indeed"
+    - "naming is hard"
+    - "If it's Wednesday, go to Beck's"
+    - "We :heart: Taylor Swift"
+    - "I like to pair, do you?"
+    - "Sam has nice coffee"
+    - "Go team!"
+    - "Now that’s an interesting question"
+    - "$integer = '34'"
+    - "How hot is it? Probably 28"
+
+  use_labels: true
