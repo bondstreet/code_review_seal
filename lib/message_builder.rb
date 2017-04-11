@@ -97,8 +97,9 @@ class MessageBuilder
     thumbs_up = " | #{pr["thumbs_up"].to_i} :+1:" if pr["thumbs_up"].to_i > 0
     approved = pr["approved"] ? " | :white_check_mark: " : ""
     <<-EOF.gsub(/^\s+/, '')
-    #{index}\) *#{pr["repo"]}* | ##{pr["number"]} | author: #{pr["author"]} | reviewer(s): #{pr["reviewers"].join("','")} | updated #{days_plural(days)}#{thumbs_up}#{approved}
-    #{labels(pr)} <#{pr["link"]}|#{pr["title"]}> - #{pr["comments_count"]}#{comments(pull_request)}
+    #{index}\) *#{pr["repo"]}* | ##{pr["number"]} | <#{pr["link"]}|#{pr["title"]}> - #{pr["comments_count"]}#{comments(pull_request)}
+    author: #{pr["author"]} | reviewer(s): #{pr["reviewers"].join("','")} | updated #{days_plural(days)}#{thumbs_up}#{approved}
+    #{labels(pr)}
     EOF
   end
 
