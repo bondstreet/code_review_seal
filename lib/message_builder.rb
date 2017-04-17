@@ -98,7 +98,7 @@ class MessageBuilder
     approved = pr["approved"] ? " | :white_check_mark: " : ""
     <<-EOF.gsub(/^\s+/, '')
     #{index}\) *#{pr["repo"]}* | ##{pr["number"]} | <#{pr["link"]}|#{pr["title"]}> - #{pr["comments_count"]}#{comments(pull_request)}
-    author: #{pr["author"]} | reviewer(s): #{pr["reviewers"].join("','")} | updated #{days_plural(days)}#{thumbs_up}#{approved}
+    author: #{pr["author"]} | reviewer(s): #{pr["reviewers"].join(", ")} | updated #{days_plural(days)}#{thumbs_up}#{approved}
     #{labels(pr)}
     EOF
   end
