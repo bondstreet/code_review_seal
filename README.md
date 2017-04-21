@@ -1,4 +1,96 @@
-# Seal
+# Bond Street Code Review Seal
+
+The Code Review Seal is a Slack bot with a seal-themed personality. Once a day, it publishes a list of outstanding pull requests needing review in the #techteam-notify channel. Its purpose is to remind reviewers to review and authors to merge PRs.
+
+## Code
+The bot is written in Ruby. It has been modified from the original version by [binaryberry](https://github.com/binaryberry/seal) to include code reviewer information.
+
+## Deployment
+
+As of this writing (4/21/17), the seal is deployed on Katrina's personal Heroku account. Because it doesn't consume many resources and only runs intermittently, it can run on Heroku's free dynos.
+
+### Update the Code
+
+* Clone this repo on your computer
+
+     ```
+     git clone git@github.com:bondstreet/code_review_seal.git
+     ```
+
+* Update the settings in _config/bondstreet.yml_ to suit your taste. The most important setting in here is the Slack channel that the bot uses. Some of the settings other are unused - they were used by the repo this one was forked from, but not by the currently-enabled functionality. See the original docs below for more information on settings.
+
+### Send it to Heroku
+* Create your own [Heroku account](https://signup.heroku.com/)
+
+* Install the Heroku CLI with Homebrew
+
+    ```
+    brew install heroku
+    ```
+
+* Create a Heroku app for the seal
+
+    ```
+    cd code_review_seal
+    heroku create code_review_seal
+    ```
+* Push the code to Heroku
+
+    ```
+    git push heroku master
+    ```
+
+### Set the Environment Variables
+* Generate Github token and Slack webhook
+
+   * To get a new GITHUB_TOKEN, head to: https://github.com/settings/tokens
+      * Give the token the `repo:status`, `repo_deployment`, and `public_repo` settings for the bondstreet_web repo
+   * To get a new SLACK_WEBHOOK, head to: https://slack.com/services/new/incoming-webhook
+       * If you don't have permission to access this URL, you can send our Slack admins a request by going to the drop-down menu in the top left corner of Slack, then clicking:
+          *  Apps and Integrations
+          *  Build (top right corner of page)
+          *  Incoming Webhooks (left side of page)
+      *  You will also have to [create a Slack app](https://api.slack.com/slack-apps), unless the existing one still exists and has been transferred to you.
+
+* Log into Heroku and set the following config variables by going to Settings > Config vars in the UI:
+
+    ```
+    export SEAL_ORGANISATION="bondstreet"
+    export GITHUB_TOKEN="<GITHUB TOKEN>"
+    export SLACK_WEBHOOK="<SLACK WEBHOOK_URL>"
+    ```
+
+### Test the Seal
+
+You can test the seal by running `./bin/seal.rb bondstreet_web` locally or from the Heroku command line.
+
+Run locally:
+
+```
+$ cd code_review_seal
+$ ./bin/seal.rb bondstreet_web
+```
+
+Run on Heroku:
+
+```
+$ heroku run bash
+heroku> ./bin/seal.rb bondstreet_web
+```
+
+### Schedule the Seal
+Use the [Heroku Scheduler](https://elements.heroku.com/addons/scheduler) to run the seal every morning. The command the scheduler should execute is:
+
+```
+./bin/seal.rb bondstreet_web
+```
+
+The seal will not post messages on weekends, even if it is run then.
+
+***************
+
+
+# Seal [original documentation from [binaryberry](https://github.com/binaryberry/seal)]
 [![Build Status](https://travis-ci.org/binaryberry/seal.svg)](https://travis-ci.org/binaryberry/seal)
 
 ## What is it?
